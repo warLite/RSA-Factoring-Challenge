@@ -1,0 +1,15 @@
+import math
+
+def factors(num):
+    # Find all factors of num
+    res = []
+    for i in range(2, int(math.sqrt(num))+1):
+        if num % i == 0:
+            res.append((i, num//i))
+    return res
+
+with open('input.txt', 'r') as f:
+    for line in f:
+        num = int(line.strip())
+        for factor in factors(num):
+            print(f"{num}={factor[0]}*{factor[1]}")
