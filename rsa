@@ -1,0 +1,26 @@
+from math import isqrt
+
+def factorize(n):
+    """
+    Factorizes a given number n into its prime factors.
+    Returns a string representation of the factorization.
+    """
+    # Check if n is even
+    if n % 2 == 0:
+        return f"{n}=2*{n//2}"
+    
+    # Check odd factors up to sqrt(n)
+    for i in range(3, isqrt(n)+1, 2):
+        if n % i == 0:
+            return f"{n}={i}*{n//i}"
+    
+    # If n is prime, return itself
+    return f"{n}={n}*1"
+
+# Main function
+if __name__ == "__main__":
+    import sys
+    filename = sys.argv[1]
+    with open(filename) as f:
+        n = int(f.read().strip())
+    print(factorize(n))
