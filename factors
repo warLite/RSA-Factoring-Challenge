@@ -1,15 +1,33 @@
 import math
 
-def factors(num):
-    # Find all factors of num
-    res = []
-    for i in range(2, int(math.sqrt(num))+1):
+def is_prime(num):
+    if num == 2:
+        return True
+    if num % 2 == 0 or num == 1:
+        return False
+    for i in range(3, int(math.sqrt(num))+1, 2):
         if num % i == 0:
-            res.append((i, num//i))
-    return res
+            return False
+    return True
+
+def prime_factors(num):
+    factors = []
+    d = 2
+    while num > 1:
+        while num % d == 0:
+            factors.append(d)
+            num //= d
+        d += 1
+        if d*d > num:
+            if num > 1:
+                factors.append(num)
+            break
+    return factors
 
 with open('input.txt', 'r') as f:
     for line in f:
         num = int(line.strip())
-        for factor in factors(num):
-            print(f"{num}={factor[0]}*{factor[1]}")
+        factors = prime_factors(num)
+        if len(factors) == 2 and is_prime(factors[0]) and is_prime(factors[1]):
+            print(f"{num}={factors[0]}*{factors[1]}")
+
